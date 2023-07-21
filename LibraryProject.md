@@ -46,7 +46,7 @@ graph TD;
 ```mermaid
 graph LR;
  subgraph frontend
-    browser[LibraryUI<br><REACT>]
+    browser[LibraryUI<br><REACT>];
  end
  browser-. REST .->springapp;
  subgraph backend
