@@ -40,9 +40,11 @@ public class AuthorController {
         authorRepository.deleteById(id);
     }
     @PatchMapping(value = "/{id}")
-    public @ResponseBody void updateAuthor(@RequestParam String name
-            , @RequestParam String lastName, @PathVariable Integer id){
+    public @ResponseBody void updateAuthor(@RequestParam(required = false) String name
+            , @RequestParam(required = false) String lastName, @PathVariable Integer id){
         Optional<Author> author = authorRepository.findById(id);
+        if(name == null && author.isPresent()) name = author.get().getName();
+        if(lastName == null && author.isPresent()) lastName = author.get().getLastName();
         if(author.isPresent()){
             author.get().setName(name);
             author.get().setLastName(lastName);
@@ -52,5 +54,4 @@ public class AuthorController {
             throw new ResourceNotFoundException();
         }
     }
-
 }
