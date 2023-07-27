@@ -19,11 +19,13 @@ public class BookController {
     @Autowired
     private AuthorRepository authorRepository;
 
+    @CrossOrigin
     @GetMapping(path="/")
     public @ResponseBody Iterable<Book> getAllBooks() {
         // This returns a JSON or XML with the users
         return bookRepository.findAll();
     }
+    @CrossOrigin
     @PostMapping(path="/")
     public @ResponseBody String addNewBook (@RequestParam String title
             , @RequestParam Integer authorId) {
@@ -38,10 +40,12 @@ public class BookController {
             return "Saved";
         }else throw new ResourceNotFoundException();
     }
+    @CrossOrigin
     @DeleteMapping(value ="/{id}")
     public @ResponseBody void deleteBook(@PathVariable Integer id) {
         bookRepository.deleteById(id);
     }
+    @CrossOrigin
     @PatchMapping(value = "/{id}")
     public @ResponseBody void updateBook(@RequestParam(required = false) String title
             , @RequestParam(required = false) Integer authorId, @PathVariable Integer id){

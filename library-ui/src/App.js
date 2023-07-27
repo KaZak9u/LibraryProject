@@ -15,7 +15,7 @@ import { BrowserRouter as Router, Routes,
 
 
 import AuthorList from "./Components/author-list.component";
-
+import BookList from "./Components/book-list.component";
 // App Component
 const App = () => {
   return (
@@ -38,7 +38,14 @@ const App = () => {
                       Author List
                     </Link>
                   </Nav>
+                  <Nav>
+                    <Link to={"/book-list"}
+                          className="nav-link">
+                      Book List
+                    </Link>
+                  </Nav>
                 </Nav>
+
               </Container>
             </Navbar>
           </header>
@@ -52,6 +59,8 @@ const App = () => {
                            element={<AuthorList/>} />
                     <Route path="/author-list"
                            element={<AuthorList/>} />
+                    <Route path="/book-list"
+                           element={<BookList/>} />
                   </Routes>
                 </div>
               </Col>
