@@ -16,12 +16,14 @@ public class AuthorController {
     @Autowired
     private AuthorRepository authorRepository;
 
+    @CrossOrigin
     @GetMapping(path="/")
     public @ResponseBody Iterable<Author> getAllAuthors() {
         // This returns a JSON or XML with the users
         return authorRepository.findAll();
     }
 
+    @CrossOrigin
     @PostMapping(path="/")
     public @ResponseBody String addNewAuthor (@RequestParam String name
             , @RequestParam String lastName) {
@@ -34,11 +36,12 @@ public class AuthorController {
         authorRepository.save(n);
         return "Saved";
     }
-
+    @CrossOrigin
     @DeleteMapping(value ="/{id}")
     public @ResponseBody void deleteAuthor(@PathVariable Integer id) {
         authorRepository.deleteById(id);
     }
+    @CrossOrigin
     @PatchMapping(value = "/{id}")
     public @ResponseBody void updateAuthor(@RequestParam(required = false) String name
             , @RequestParam(required = false) String lastName, @PathVariable Integer id){
