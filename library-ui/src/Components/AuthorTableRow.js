@@ -25,7 +25,7 @@ const AuthorTableRow = (props) => {
             <td>{lastName}</td>
             <td>
                 <Link className="edit-link"
-                      to={"/edit-Author/" + id}>
+                      to={"/edit-author/" + id}>
                     Edit
                 </Link>
                 <Button onClick={deleteAuthor}

@@ -13,7 +13,7 @@ body h3 {
 .form-wrapper,
 .table-wrapper {
   max-width: 500px;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 
 .table-wrapper {
@@ -48,4 +48,7 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+.kacper{
+  margin-top:10px;
 }

@@ -16,6 +16,10 @@ import { BrowserRouter as Router, Routes,
 
 import AuthorList from "./Components/author-list.component";
 import BookList from "./Components/book-list.component";
+import EditAuthor from "./Components/edit-author.component";
+import CreateAuthor from "./Components/create-author.component";
+import EditBook from "./Components/edit-book.component";
+import CreateBook from "./Components/create-book.component";
 // App Component
 const App = () => {
   return (
@@ -59,8 +63,16 @@ const App = () => {
                            element={<AuthorList/>} />
                     <Route path="/author-list"
                            element={<AuthorList/>} />
+                    <Route path="/edit-author/:id"
+                           element={<EditAuthor/>} />
+                    <Route path="/create-author"
+                           element={<CreateAuthor/>} />
                     <Route path="/book-list"
                            element={<BookList/>} />
+                    <Route path="/edit-book/:id"
+                           element={<EditBook/>} />
+                    <Route path="/create-book"
+                           element={<CreateBook/>} />
                   </Routes>
                 </div>
               </Col>

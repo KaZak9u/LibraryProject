@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, Fragment} from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
 import BookTableRow from "./BookTableRow";
+import {Link} from "react-router-dom";
 
 const BookList = () => {
     const [Books, setBooks] = useState([]);
@@ -24,19 +25,27 @@ const BookList = () => {
     };
 
     return (
-        <div className="table-wrapper">
-            <Table striped bordered hover>
-                <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Author name</th>
-                    <th>Author last name</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>{DataTable()}</tbody>
-            </Table>
-        </div>
+        <Fragment>
+            <div className="table-wrapper" >
+                <Link className="edit-link"
+                      to={"/create-book"} >
+                    Create
+                </Link>
+            </div>
+            <div className="table-wrapper">
+                <Table striped bordered hover>
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author name</th>
+                        <th>Author last name</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>{DataTable()}</tbody>
+                </Table>
+            </div>
+        </Fragment>
     );
 };
 

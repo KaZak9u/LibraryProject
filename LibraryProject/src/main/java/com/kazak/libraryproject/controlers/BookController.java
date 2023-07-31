@@ -26,6 +26,14 @@ public class BookController {
         return bookRepository.findAll();
     }
     @CrossOrigin
+    @GetMapping(value="/{id}")
+    public @ResponseBody Book getBook(@PathVariable Integer id) {
+        // This returns a JSON or XML with the users
+        Optional<Book> book= bookRepository.findById(id);
+        if(book.isPresent())return book.get();
+        else throw new ResourceNotFoundException();
+    }
+    @CrossOrigin
     @PostMapping(path="/")
     public @ResponseBody String addNewBook (@RequestParam String title
             , @RequestParam Integer authorId) {

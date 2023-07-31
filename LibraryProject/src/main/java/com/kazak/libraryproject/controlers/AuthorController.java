@@ -22,6 +22,14 @@ public class AuthorController {
         // This returns a JSON or XML with the users
         return authorRepository.findAll();
     }
+    @CrossOrigin
+    @GetMapping(value="/{id}")
+    public @ResponseBody Author getAuthor(@PathVariable Integer id) {
+        // This returns a JSON or XML with the users
+        Optional<Author> author = authorRepository.findById(id);
+        if(author.isPresent())return author.get();
+        else throw new ResourceNotFoundException();
+    }
 
     @CrossOrigin
     @PostMapping(path="/")
