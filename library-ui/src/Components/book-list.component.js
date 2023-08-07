@@ -23,7 +23,6 @@ const BookList = () => {
             return <BookTableRow obj={res} key={i} />;
         });
     };
-
     return (
         <Fragment>
             <div className="table-wrapper" >

@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import BookForm from "./BookForm";
+import BookBootstrapForm from "./book-form.component";
 
 // CreateStudent Component
 const CreateBook = () => {
     const [formValues, setFormValues] =
         useState({ title: '', authorId: '' })
 // onSubmit handler
-    const onSubmit = studentObject => {
+    const onSubmit = (event) => {
+        let body = {
+            title: event.target.title.value,
+            authorId: event.target.authorId.value
+        };
         axios.post(
             'http://localhost:8080/books/',
-            studentObject,{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+            body,{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
             .then(res => {
                 if (res.status === 200)
                     alert('Book successfully created')
@@ -22,11 +26,11 @@ const CreateBook = () => {
 
 // Return student form
     return(
-        <BookForm initialValues={formValues}
+        <BookBootstrapForm initialValues={formValues}
                     onSubmit={onSubmit}
                     enableReinitialize>
             Create Book
-        </BookForm>
+        </BookBootstrapForm>
     )
 }
 

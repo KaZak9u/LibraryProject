@@ -3,17 +3,21 @@
 // Import Modules
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import AuthorForm from "./AuthorForm";
+import AuthorBootstrapForm from "./author-form.component";
 
 // CreateStudent Component
 const CreateAuthor = () => {
     const [formValues, setFormValues] =
         useState({ name: '', lastName: '' })
 // onSubmit handler
-    const onSubmit = studentObject => {
+    const onSubmit = (event) => {
+        let body = {
+            name: event.target.authorName.value,
+            lastName: event.target.authorLastName.value
+        };
         axios.post(
             'http://localhost:8080/authors/',
-            studentObject,{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+            body,{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
             .then(res => {
                 if (res.status === 200)
                     alert('Author successfully created')
@@ -25,11 +29,11 @@ const CreateAuthor = () => {
 
 // Return student form
     return(
-        <AuthorForm initialValues={formValues}
+        <AuthorBootstrapForm initialValues={formValues}
                      onSubmit={onSubmit}
                      enableReinitialize>
             Create Author
-        </AuthorForm>
+        </AuthorBootstrapForm>
     )
 }
 

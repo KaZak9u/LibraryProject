@@ -3,8 +3,8 @@
 // Import Modules
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import AuthorForm from "./AuthorForm";
 import { useParams } from 'react-router-dom'
+import AuthorBootstrapForm from "./author-form.component";
 
 const EditAuthor = (props) => {
     const [formValues, setFormValues] = useState({
@@ -14,12 +14,16 @@ const EditAuthor = (props) => {
     const { id } = useParams()
 
 //onSubmit handler
-    const onSubmit = (studentObject) => {
+    const onSubmit = (event) => {
+        let body = {
+            name: event.target.authorName.value,
+            lastName: event.target.authorLastName.value
+        };
         axios
             .patch(
                 "http://localhost:8080/authors/" +
                 id,
-                studentObject,
+                body,
                 { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
             )
             .then((res) => {
@@ -46,13 +50,13 @@ const EditAuthor = (props) => {
 
 // Return student form
     return (
-        <AuthorForm
+        <AuthorBootstrapForm
             initialValues={formValues}
             onSubmit={onSubmit}
             enableReinitialize
         >
             Update Author
-        </AuthorForm>
+        </AuthorBootstrapForm>
     );
 };
 
