@@ -11,17 +11,20 @@ const EditBook = (props) => {
     const [authors, setAuthors] = useState({})
     const { id } = useParams()
 
+    const onAuthorChange = (newAuthorid) => {
+        setFormValues({...formValues, authorId: parseInt(newAuthorid)})
+    }
+    const onTitleChange = (event) => {
+        setFormValues({...formValues, title: event.target.value})
+    }
+
 //onSubmit handler
     const onSubmit = (event) => {
-        let body = {
-            name: event.target.title.value,
-            lastName: event.target.authorId.value
-        };
         axios
             .patch(
                 "http://localhost:8080/books/" +
                 id,
-                body,
+                formValues,
                 { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
             )
             .then((res) => {
@@ -54,7 +57,7 @@ const EditBook = (props) => {
                 setAuthors({authors });
             })
             .catch((err) => console.log(err));
-    }, []);
+    }, [id]);
 
 // Return student form
     return (
@@ -62,6 +65,8 @@ const EditBook = (props) => {
             initialValues={formValues}
             authorList={authors}
             onSubmit={onSubmit}
+            onAuthorChange={onAuthorChange}
+            onTitleChange={onTitleChange}
             enableReinitialize
         >
             Update Book
