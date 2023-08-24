@@ -6,11 +6,11 @@ function AuthorBootstrapForm(props) {
         <Form onSubmit={props.onSubmit}>
             <Form.Group className="mb-3" controlId="authorName">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Imię" defaultValue={props.initialValues.name}/>
+                <Form.Control type="text" placeholder="Imię" onChange={props.onNameChange} defaultValue={props.initialValues.name}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="authorLastName">
                 <Form.Label>Last name </Form.Label>
-                <Form.Control type="text" placeholder="Nazwisko" defaultValue={props.initialValues.lastName}/>
+                <Form.Control type="text" placeholder="Nazwisko" onChange={props.onLastNameChange} defaultValue={props.initialValues.lastName}/>
             </Form.Group>
             <Button as="input" type="submit" value="Save"/>
         </Form>

@@ -18,8 +18,11 @@ public class AuthorController {
 
     @CrossOrigin
     @GetMapping(path="/")
-    public @ResponseBody Iterable<Author> getAllAuthors() {
+    public @ResponseBody Iterable<Author> getAuthors(@RequestParam(required = false) String search) {
         // This returns a JSON or XML with the users
+        if (search != null) {
+            return authorRepository.findByLastNameContaining(search);
+        }
         return authorRepository.findAll();
     }
     @CrossOrigin

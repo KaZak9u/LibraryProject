@@ -17,7 +17,6 @@ import { BrowserRouter as Router, Routes,
 import AuthorList from "./Components/author-list.component";
 import BookList from "./Components/book-list.component";
 import EditAuthor from "./Components/edit-author.component";
-import CreateAuthor from "./Components/create-author.component";
 import EditBook from "./Components/edit-book.component";
 import CreateBook from "./Components/create-book.component";
 // App Component
@@ -66,7 +65,7 @@ const App = () => {
                     <Route path="/edit-author/:id"
                            element={<EditAuthor/>} />
                     <Route path="/create-author"
-                           element={<CreateAuthor/>} />
+                           element={<EditAuthor/>} />
                     <Route path="/book-list"
                            element={<BookList/>} />
                     <Route path="/edit-book/:id"
