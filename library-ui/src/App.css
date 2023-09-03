@@ -15,6 +15,10 @@ body h3 {
   max-width: 500px;
   margin: 10px auto;
 }
+.searchBar {
+  max-width: 700px;
+  margin: 10px auto;
+}
 
 .table-wrapper {
   max-width: 700px;

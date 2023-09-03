@@ -20,34 +20,50 @@ const EditBook = (props) => {
 
 //onSubmit handler
     const onSubmit = (event) => {
-        axios
-            .patch(
-                "http://localhost:8080/books/" +
-                id,
-                formValues,
-                { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-            )
-            .then((res) => {
-                if (res.status === 200) {
-                    alert("Book successfully updated");
-                } else Promise.reject();
-            })
-            .catch((err) => alert("Something went wrong "+err));
+        if (id) {
+            axios
+                .patch(
+                    "http://localhost:8080/books/" +
+                    id,
+                    formValues,
+                    {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
+                )
+                .then((res) => {
+                    if (res.status === 200) {
+                        alert("Book successfully updated");
+                    } else Promise.reject();
+                })
+                .catch((err) => alert("Something went wrong " + err));
+        }
+        else {
+            axios.post(
+                'http://localhost:8080/books/',
+                formValues,{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                .then(res => {
+                    if (res.status === 200)
+                        alert('Book successfully created')
+                    else
+                        Promise.reject()
+                })
+                .catch(err => alert('Something went wrong'))
+        }
     };
 
 // Load data from server and reinitialize student form
     useEffect(() => {
-        axios
-            .get(
-                "http://localhost:8080/books/"
-                + id
-            )
-            .then((res) => {
-                const title = res.data.title;
-                const authorId = res.data.author.id;
-                setFormValues({ title, authorId });
-            })
-            .catch((err) => console.log(err));
+        if (id) {
+            axios
+                .get(
+                    "http://localhost:8080/books/"
+                    + id
+                )
+                .then((res) => {
+                    const title = res.data.title;
+                    const authorId = res.data.author.id;
+                    setFormValues({title, authorId});
+                })
+                .catch((err) => console.log(err));
+        }
         axios
             .get(
                 "http://localhost:8080/authors/"

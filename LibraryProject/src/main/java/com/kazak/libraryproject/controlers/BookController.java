@@ -21,8 +21,11 @@ public class BookController {
 
     @CrossOrigin
     @GetMapping(path="/")
-    public @ResponseBody Iterable<Book> getAllBooks() {
+    public @ResponseBody Iterable<Book> getBooks(@RequestParam(required = false) String search) {
         // This returns a JSON or XML with the users
+        if (search != null){
+            return bookRepository.findByTitleContaining(search);
+        }
         return bookRepository.findAll();
     }
     @CrossOrigin

@@ -18,7 +18,6 @@ import AuthorList from "./Components/author-list.component";
 import BookList from "./Components/book-list.component";
 import EditAuthor from "./Components/edit-author.component";
 import EditBook from "./Components/edit-book.component";
-import CreateBook from "./Components/create-book.component";
 // App Component
 const App = () => {
   return (
@@ -71,7 +70,7 @@ const App = () => {
                     <Route path="/edit-book/:id"
                            element={<EditBook/>} />
                     <Route path="/create-book"
-                           element={<CreateBook/>} />
+                           element={<EditBook/>} />
                   </Routes>
                 </div>
               </Col>
