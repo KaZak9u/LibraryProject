@@ -4,12 +4,11 @@ import com.kazak.libraryproject.entities.Author;
 import com.kazak.libraryproject.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping(path="/authors")
 public class AuthorController {
 
@@ -18,8 +17,7 @@ public class AuthorController {
 
     @CrossOrigin
     @GetMapping(path="/")
-    public @ResponseBody Iterable<Author> getAuthors(@RequestParam(required = false) String search) {
-        // This returns a JSON or XML with the users
+    public Iterable<Author> getAuthors(@RequestParam(required = false) String search) {
         if (search != null) {
             return authorRepository.findByLastNameContaining(search);
         }
@@ -27,8 +25,7 @@ public class AuthorController {
     }
     @CrossOrigin
     @GetMapping(value="/{id}")
-    public @ResponseBody Author getAuthor(@PathVariable Integer id) {
-        // This returns a JSON or XML with the users
+    public Author getAuthor(@PathVariable Integer id) {
         Optional<Author> author = authorRepository.findById(id);
         if(author.isPresent())return author.get();
         else throw new ResourceNotFoundException();
@@ -36,11 +33,8 @@ public class AuthorController {
 
     @CrossOrigin
     @PostMapping(path="/")
-    public @ResponseBody String addNewAuthor (@RequestParam String name
+    public String addNewAuthor (@RequestParam String name
             , @RequestParam String lastName) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-
         Author n = new Author();
         n.setName(name);
         n.setLastName(lastName);
@@ -52,9 +46,10 @@ public class AuthorController {
     public @ResponseBody void deleteAuthor(@PathVariable Integer id) {
         authorRepository.deleteById(id);
     }
+
     @CrossOrigin
     @PatchMapping(value = "/{id}")
-    public @ResponseBody void updateAuthor(@RequestParam(required = false) String name
+    public void updateAuthor(@RequestParam(required = false) String name
             , @RequestParam(required = false) String lastName, @PathVariable Integer id){
         Optional<Author> author = authorRepository.findById(id);
         if(name == null && author.isPresent()) name = author.get().getName();

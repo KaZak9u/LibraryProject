@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping(path="/books")
 public class BookController {
     @Autowired
@@ -21,8 +21,7 @@ public class BookController {
 
     @CrossOrigin
     @GetMapping(path="/")
-    public @ResponseBody Iterable<Book> getBooks(@RequestParam(required = false) String search) {
-        // This returns a JSON or XML with the users
+    public Iterable<Book> getBooks(@RequestParam(required = false) String search) {
         if (search != null){
             return bookRepository.findByTitleContaining(search);
         }
@@ -30,7 +29,7 @@ public class BookController {
     }
     @CrossOrigin
     @GetMapping(value="/{id}")
-    public @ResponseBody Book getBook(@PathVariable Integer id) {
+    public Book getBook(@PathVariable Integer id) {
         // This returns a JSON or XML with the users
         Optional<Book> book= bookRepository.findById(id);
         if(book.isPresent())return book.get();
@@ -38,10 +37,8 @@ public class BookController {
     }
     @CrossOrigin
     @PostMapping(path="/")
-    public @ResponseBody String addNewBook (@RequestParam String title
+    public String addNewBook (@RequestParam String title
             , @RequestParam Integer authorId) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
         Optional<Author> author = authorRepository.findById(authorId);
         if(author.isPresent()) {
             Book book = new Book();
@@ -53,12 +50,13 @@ public class BookController {
     }
     @CrossOrigin
     @DeleteMapping(value ="/{id}")
-    public @ResponseBody void deleteBook(@PathVariable Integer id) {
+    public void deleteBook(@PathVariable Integer id) {
         bookRepository.deleteById(id);
     }
+
     @CrossOrigin
     @PatchMapping(value = "/{id}")
-    public @ResponseBody void updateBook(@RequestParam(required = false) String title
+    public void updateBook(@RequestParam(required = false) String title
             , @RequestParam(required = false) Integer authorId, @PathVariable Integer id){
         Optional<Book> book = bookRepository.findById(id);
         if(title == null && book.isPresent()) title = book.get().getTitle();
